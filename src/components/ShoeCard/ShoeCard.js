@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
 
@@ -35,7 +35,9 @@ const ShoeCard = ({
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <Image alt="" src={imageSrc} />
+          <ProductImageWrapper>
+            <Image alt="" src={imageSrc} />
+          </ProductImageWrapper>
           {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
           {variant === 'new-release' && (
             <NewFlag>Just released!</NewFlag>
@@ -80,8 +82,25 @@ const ImageWrapper = styled.div`
 `;
 
 const Image = styled.img`
+  display: block;
+  object-fit: cover;
   width: 100%;
+
+  @media ${QUERIES.reducedMotionNoPreference} {
+    transition: transform 400ms;
+
+    ${Link}:hover &,
+    ${Link}:focus & {
+      transition: transform 150ms;
+      transform: scale(1.115) translateY(-5%);
+    }
+  }
+`;
+
+const ProductImageWrapper = styled.div`
+  position: relative;
   border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
 `;
 
 const Row = styled.div`
