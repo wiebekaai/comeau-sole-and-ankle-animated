@@ -9,6 +9,52 @@ import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
 import VisuallyHidden from '../VisuallyHidden';
 
+const NavLink = (props) => {
+  const Link = styled.a`
+    display: grid;
+    overflow: hidden;
+    height: 1.4rem;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-gray-900);
+    font-weight: ${WEIGHTS.medium};
+
+    &:first-of-type {
+      color: var(--color-secondary);
+    }
+  `;
+
+  const Label = styled.span`
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      transition: transform 400ms;
+      will-change: transform;
+
+      &:last-of-type {
+        font-weight: ${WEIGHTS.bold};
+      }
+
+      ${Link}:hover &,
+      ${Link}:focus & {
+        transform: translateY(-100%);
+      }
+    }
+  `;
+
+  const ActiveLabel = styled(Label)`
+    font-weight: bold;
+  `;
+
+  return <Link {...props}>
+    <Label>
+      {props.children}
+    </Label>
+    <ActiveLabel>
+      {props.children}
+    </ActiveLabel>
+  </Link>
+};
+
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
 
@@ -111,18 +157,6 @@ const Filler = styled.div`
 
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
-  }
-`;
-
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
-
-  &:first-of-type {
-    color: var(--color-secondary);
   }
 `;
 
