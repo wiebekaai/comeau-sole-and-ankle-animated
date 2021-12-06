@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
 
@@ -86,13 +86,14 @@ const Image = styled.img`
   object-fit: cover;
   width: 100%;
 
-  @media ${QUERIES.reducedMotionNoPreference} {
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     transition: transform 400ms;
+    will-change: transform;
 
     ${Link}:hover &,
     ${Link}:focus & {
       transition: transform 150ms;
-      transform: scale(1.115) translateY(-5%);
+      transform: scale(1.1) translateY(-5%);
     }
   }
 `;
